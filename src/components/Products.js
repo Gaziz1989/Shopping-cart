@@ -1,4 +1,5 @@
 import formatCurrency from "../utils"
+
 function Products(props) {
 	return (
 		<div>

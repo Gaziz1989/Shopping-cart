@@ -1,4 +1,4 @@
-import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap")
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 html {
 	font-size: 62.5%;
@@ -12,8 +12,8 @@ body,
 }
 
 body, input, select, button, textarea {
-	font-size: 1.6rem;
 	font-family: Montserrat, Helvetica, Arial, sans-serif;
+	font-size: 1.6rem;
 }
 
 .grid-container {
@@ -71,6 +71,7 @@ footer {
 .sidebar {
 	flex: 1 20rem;
 }
+
 /* products */
 .products {
 	display: flex;
@@ -83,7 +84,7 @@ footer {
 }
 
 .products li {
-	flex: 1 1 29rem;
+	flex: 0 1 29rem;
 	height: 47rem;
 	padding: 1rem;
 	margin: 1rem;
@@ -128,4 +129,18 @@ footer {
 }
 .button.primary {
 	background-color: #f0c040;
+}
+
+/*Filter*/
+
+.filter {
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem;
+	margin: 1rem;
+	border-bottom: 0.1rem #c0c0c0 solid;
+}
+
+.filter div {
+	flex: 1;
 }
