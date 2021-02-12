@@ -31,6 +31,7 @@ function App() {
 			} else if (event.target.value === "Latest") {
 				return a._id > b._id ? 1 : -1
 			}
+			return a._id > b._id ? 1 : -1 
 		});
 		setProducts(t);
 	};
