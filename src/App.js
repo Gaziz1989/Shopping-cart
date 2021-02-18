@@ -8,7 +8,7 @@ function App() {
 	const [products, setProducts] = useState(data.products);
 	const [size, setSize] = useState("ALL");
 	const [sort, setSort] = useState("Latest");
-	const [cartItems, setCartArr] = useState([])
+	const [cartItems, setCartArr] = useState(localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : []);
 
 	const getProducts = () => {
 		setProducts(data.products);
@@ -48,19 +48,21 @@ function App() {
 			};
 		});
 		if (!alreadyInCart) {
-			items.push({...product, count: 1})
+			items.push({...product, count: 1});
 		};
 		setCartArr(items);
+		localStorage.setItem("cartItems", JSON.stringify(items));
 	};
 
 	const removeFromCart = (product) => {
 		const items = cartItems.slice(0);
 		const tmp = items.filter(x => x._id !== product._id);
 		setCartArr(tmp);
+		localStorage.setItem("cartItems", JSON.stringify(tmp));
 	};
 
-	const proceedCartItems = () => {
-		console.log(cartItems);
+	const createOrder = (order) => {
+		alert("Hey There " + order.name);
 	};
 
 	useEffect(() => {
@@ -79,7 +81,7 @@ function App() {
 						<Products products={products} addToCart={addToCart}></Products>		
 					</div>
 					<div className="sidebar">
-						<Carts cartItems={cartItems} removeFromCart={removeFromCart} proceedCartItems={proceedCartItems}></Carts>
+						<Carts cartItems={cartItems} removeFromCart={removeFromCart} createOrder={createOrder}></Carts>
 					</div>
 				</div>
 			</main>
