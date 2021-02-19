@@ -5,7 +5,6 @@ import Modal from 'react-modal';
 import {useState} from 'react';
 
 function Products(props) {
-	const [showModal, setShowModal] = useState(false);
 	const [product, setProduct] = useState(null);
 
 	const openModal = (product) => {
