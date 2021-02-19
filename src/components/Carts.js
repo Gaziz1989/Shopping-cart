@@ -1,5 +1,6 @@
 import formatCurrency from "../utils";
 import {useState} from 'react';
+import Fade from "react-reveal/Fade"
 
 function Carts(props) {
 	const [showCheckout, setShowCheckout] = useState(false);
@@ -35,6 +36,7 @@ function Carts(props) {
 				: <div className="cart cart-header">Cart is empty</div>}
 				<div>
 					<div className="cart">
+						<Fade left cascade>
 						<ul className="cart-items">
 							{
 								props.cartItems.map((item) => (
@@ -53,6 +55,7 @@ function Carts(props) {
 										))
 								}
 							</ul>
+						</Fade>
 						</div>
 						{	props.cartItems.length !== 0 && 
 							(
@@ -67,6 +70,7 @@ function Carts(props) {
 									</div>
 									{
 										showCheckout && (
+											<Fade right cascade>
 											<div className="cart">
 											<form onSubmit={createOrder}>
 												<ul className="form-container">
@@ -87,7 +91,8 @@ function Carts(props) {
 													</li>
 												</ul>	
 											</form>
-											</div>)
+											</div>
+											</Fade>)
 										}
 								</div>
 									)
