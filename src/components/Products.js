@@ -2,7 +2,9 @@ import formatCurrency from "../utils";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 import Modal from 'react-modal';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {fetchProducts} from "../actions/productActions"
+import {connect} from "react-redux";
 
 function Products(props) {
 	const [product, setProduct] = useState(null);
@@ -14,29 +16,37 @@ function Products(props) {
 		setProduct(null);
 	};
 
+	useEffect(() => {
+		props.fetchProducts();
+	}, []);
 	return (
 		<div>
 			<Fade bottom cascade>
-				<ul className="products">
-				{props.products.length > 0 ? props.products.map((item) => (
-					<li key={item._id}>
-						<div className="product">
-							<a href={`#/${item._id}`} onClick={() => openModal(item)}>
-								<img src={item.image} alt={item.title}></img>
-								<p>{item.title}</p>
-							</a>
-							<div className="product-price">
-								<div>
-									{formatCurrency(item.price)}
-								</div>
-								<button className="button primary" onClick={() => props.addToCart(item)}>
-									Add to cart
-								</button>
-							</div>
-						</div>
-					</li>
-				)) : "No data"}
-				</ul>
+				{
+					!props.products.items ? (<div>Loading...</div>) : 
+					(					
+						<ul className="products">
+							{props.products.items.length > 0 ? props.products.items.map((item) => (
+								<li key={`product-${item.id}-item`}>
+									<div className="product">
+										<a href={`#/${item._id}`} onClick={() => openModal(item)}>
+											<img src={item.image} alt={item.title}></img>
+											<p>{item.title}</p>
+										</a>
+										<div className="product-price">
+											<div>
+												{formatCurrency(item.price)}
+											</div>
+											<button className="button primary" onClick={() => props.addToCart(item)}>
+												Add to cart
+											</button>
+										</div>
+									</div>
+									</li>
+									)) : "No data"}
+							</ul>
+							)
+					}
 			</Fade>
 			{
 				product && (
@@ -83,5 +93,5 @@ function Products(props) {
 	)
 };
 
-export default Products;
+export default connect((state) => ({products: state.products}), {fetchProducts})(Products);
 

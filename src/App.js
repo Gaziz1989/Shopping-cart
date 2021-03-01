@@ -3,6 +3,8 @@ import data from "./data.json";
 import Products from "./components/Products";
 import Filter from "./components/Filter";
 import Carts from "./components/Carts";
+import store from "./store.js";
+import {Provider} from "react-redux";
 
 function App() {
 	const [products, setProducts] = useState(data.products);
@@ -70,25 +72,27 @@ function App() {
 	}, []);
 
 	return (
-		<div className="grid-container">
-			<header>
-				<a href="/">Gaziz React Shopping Cart</a>
-			</header>
-			<main>
-				<div className="content">
-					<div className="main">
-						<Filter count={products.length} size={size} sort={sort} filterProducts={filterProducts} sortProducts={sortProducts}></Filter>
-						<Products products={products} addToCart={addToCart}></Products>		
+		<Provider store={store}>
+			<div className="grid-container">
+				<header>
+					<a href="/">Gaziz React Shopping Cart</a>
+				</header>
+				<main>
+					<div className="content">
+						<div className="main">
+							<Filter count={products.length} size={size} sort={sort} filterProducts={filterProducts} sortProducts={sortProducts}></Filter>
+							<Products products={products} addToCart={addToCart}></Products>		
+						</div>
+						<div className="sidebar">
+							<Carts cartItems={cartItems} removeFromCart={removeFromCart} createOrder={createOrder}></Carts>
+						</div>
 					</div>
-					<div className="sidebar">
-						<Carts cartItems={cartItems} removeFromCart={removeFromCart} createOrder={createOrder}></Carts>
-					</div>
+				</main>
+				<footer>
+					All right is reserved
+				</footer>
 				</div>
-			</main>
-			<footer>
-				All right is reserved
-			</footer>
-			</div>
+		</Provider>
 			);
 }
 
