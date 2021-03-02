@@ -17,16 +17,16 @@ function Products(props) {
 	};
 
 	useEffect(() => {
-		props.fetchProducts();
+		props.fetchProducts()
 	}, []);
 	return (
 		<div>
 			<Fade bottom cascade>
 				{
-					!props.products.items ? (<div>Loading...</div>) : 
+					!props.products ? (<div>Loading...</div>) : 
 					(					
 						<ul className="products">
-							{props.products.items.length > 0 ? props.products.items.map((item) => (
+							{props.products.length > 0 ? props.products.map((item) => (
 								<li key={`product-${item.id}-item`}>
 									<div className="product">
 										<a href={`#/${item._id}`} onClick={() => openModal(item)}>
@@ -93,5 +93,5 @@ function Products(props) {
 	)
 };
 
-export default connect((state) => ({products: state.products}), {fetchProducts})(Products);
+export default connect((state) => ({products: state.products.filteredItems}), {fetchProducts})(Products);
 
