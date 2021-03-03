@@ -53,12 +53,3 @@ export const sortProducts = (products, sort) => (dispatch) => {
 		console.log(error);
 	};
 };
-// 
-// export const addProduct = () => async (dispatch) => {
-// 	try {
-// 		let result = {}
-// 		
-// 	} catch (error) {
-// 		console.log(error)
-// 	}
-// }

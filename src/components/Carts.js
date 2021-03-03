@@ -1,6 +1,8 @@
 import formatCurrency from "../utils";
 import {useState} from 'react';
 import Fade from "react-reveal/Fade"
+import {removeFromCart} from "../actions/cartActions"
+import {connect} from "react-redux";
 
 function Carts(props) {
 	const [showCheckout, setShowCheckout] = useState(false);
@@ -40,7 +42,7 @@ function Carts(props) {
 						<ul className="cart-items">
 							{
 								props.cartItems.map((item) => (
-									<li key={`${item._id}-cart-item`}>
+									<li key={`${item.id}-cart-item`}>
 										<div>
 											<img src={item.image} alt={item.title}></img>
 										</div>
@@ -103,4 +105,6 @@ function Carts(props) {
 							)
 };
 
-export default Carts;
+export default connect((state) => ({
+	cartItems: state.cart.cartItems
+}), {removeFromCart})(Carts);
