@@ -38,3 +38,28 @@ export const removeFromCart = (product) => (dispatch, getState) => {
 		console.log(error);
 	}
 };
+
+export const createOrder = (order) => async (dispatch) => {
+	try {
+		let res = await fetch("http://localhost:2021/api/v1/order", {
+			method: "POST",
+			mode: "cors",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(order)
+		});
+		if (res.status) {
+			alert("Your order will be processed soon")
+		}
+		dispatch({
+			type: "CREATE_ORDER",
+			payload: {
+				cartItems: []
+			}
+		});
+		localStorage.setItem("cartItems", JSON.stringify([]));
+	} catch (error) {
+		console.log(error);
+	}
+}

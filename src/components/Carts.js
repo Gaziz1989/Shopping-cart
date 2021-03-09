@@ -1,7 +1,7 @@
 import formatCurrency from "../utils";
 import {useState} from 'react';
 import Fade from "react-reveal/Fade"
-import {removeFromCart} from "../actions/cartActions"
+import {removeFromCart, createOrder as _createOrder} from "../actions/cartActions"
 import {connect} from "react-redux";
 
 function Carts(props) {
@@ -26,9 +26,10 @@ function Carts(props) {
 			name: name,
 			email: email,
 			address: address,
-			cartItems: props.cartItems
+			cartItems: props.cartItems,
+			total: props.cartItems.reduce((a,c) => a + c.price * c.count, 0)
 		}
-		props.createOrder(order)
+		props._createOrder(order)
 	}
 
 	return (
@@ -107,4 +108,4 @@ function Carts(props) {
 
 export default connect((state) => ({
 	cartItems: state.cart.cartItems
-}), {removeFromCart})(Carts);
+}), {removeFromCart, _createOrder})(Carts);
